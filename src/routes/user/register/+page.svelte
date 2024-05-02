@@ -1,5 +1,6 @@
 <script lang="ts">
 	import api from '$lib/scripts/api';
+	import type { AxiosError } from 'axios';
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -15,8 +16,9 @@
 			} else {
 				alert(registerResponse.message);
 			}
-		} catch (error) {
-			console.log(error);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
 		}
 	}
 </script>

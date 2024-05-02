@@ -70,8 +70,9 @@
 			});
 
 			(event.target as HTMLFormElement).reset();
-		} catch (error) {
-			console.error(error);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
 		}
 	}
 

@@ -4,6 +4,7 @@
 	import socket from '$lib/stores/socket';
 	import { userGroupsStore, userStore } from '$lib/stores/user';
 	import type { ApiCreateGroup } from '$lib/types/api/chat';
+	import type { AxiosError } from 'axios';
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -26,12 +27,18 @@
 
 				$socket.emit('join', createGroupResponse.data.id);
 
-				goto(`/chat/${createGroupResponse.data.id}`);
+				await api.post(`/chat/group/users/setLastOpened`, {
+					userId: $userStore.id,
+					groupId: createGroupResponse.data.id,
+				});
+
+				location.href = `/chat/${createGroupResponse.data.id}`;
 			} else {
 				alert(createGroupResponse.error);
 			}
-		} catch (error) {
-			console.log(error);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
 		}
 	}
 </script>
