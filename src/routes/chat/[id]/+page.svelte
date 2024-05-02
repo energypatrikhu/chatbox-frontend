@@ -4,19 +4,24 @@
 	import socket from '$lib/stores/socket';
 	import { userStore } from '$lib/stores/user';
 	import type { Message } from '$lib/types/chat';
-	import api from '../../../lib/scripts/api';
-	import type {
-		ApiAddUser,
-		ApiRemoveUser,
-	} from '../../../lib/types/api/chat';
+	import api from '$lib/scripts/api';
+	import type { ApiAddUser, ApiRemoveUser } from '$lib/types/api/chat';
 	import { onMount } from 'svelte';
+	import { PersonAdd, PersonDash } from 'svelte-bootstrap-icons';
+	import type { AxiosError } from 'axios';
 
 	export let data: PageData;
-	let pageLoaded = false;
 
-	$: ({ messages, id, users } = data);
+	let modelOpen: 'addUser' | 'removeUser' | null = null;
+
+	let messageContainerMessages: HTMLDivElement;
+
+	$: ({ messages, id, users, group } = data);
 
 	function messageListener() {
+		messageContainerMessages.scrollTop =
+			messageContainerMessages.scrollHeight;
+
 		$socket.off('message');
 		$socket.on('message', (message: Message) => {
 			if (message.Group.id !== parseInt(id)) {
@@ -24,6 +29,11 @@
 			}
 
 			messages = [...messages, message];
+
+			setTimeout(() => {
+				messageContainerMessages.scrollTop =
+					messageContainerMessages.scrollHeight;
+			}, 0);
 
 			console.log('message', message);
 		});
@@ -38,14 +48,11 @@
 	});
 
 	afterNavigate(() => {
-		if (!pageLoaded) {
-			pageLoaded = true;
-			return;
-		}
-
-		console.log(users);
-
 		messageListener();
+
+		return () => {
+			$socket.off('message');
+		};
 	});
 
 	beforeNavigate(() => {
@@ -90,8 +97,9 @@
 			} else {
 				alert(addUser.error);
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
 		}
 	}
 
@@ -114,55 +122,98 @@
 			} else {
 				alert(removeUser.error);
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
 		}
 	}
 </script>
 
-<!-- <div
-	class="container"
-	style="width: 15rem;"
->
-	<h1>Felhasználó hozzáadása</h1>
-	<form on:submit="{handleAddUserSubmit}">
-		<label class="w-50 p-2">
-			Név
-			<input
-				type="text"
-				name="name"
-			/>
-		</label>
+{#if modelOpen === 'addUser'}
+	<div class="user-modal">
+		<h1>Felhasználó hozzáadása</h1>
+		<form on:submit="{handleAddUserSubmit}">
+			<div class="user-modal-body">
+				<label class="user-modal-label">
+					Név
+					<input
+						type="text"
+						name="name"
+					/>
+				</label>
+			</div>
 
-		<button
-			type="submit"
-			class="w-50 p-1 btn btn-info">Hozzáadás</button
-		>
-	</form>
+			<div class="user-modal-actions">
+				<button
+					type="submit"
+					class="user-modal-button">Hozzáadás</button
+				>
+				<button
+					on:click="{() => (modelOpen = null)}"
+					type="button"
+					class="user-modal-button">Mégsem</button
+				>
+			</div>
+		</form>
+	</div>
+{:else if modelOpen === 'removeUser'}
+	<div class="user-modal">
+		<h1>Felhasználó eltávolítása</h1>
+		<form on:submit="{handleRemoveUserSubmit}">
+			<div class="user-modal-body">
+				<label class="user-modal-label">
+					Felhasználó
+					<select name="userId">
+						{#each users as user}
+							<option value="{user.id}">{user.name}</option>
+						{/each}
+					</select>
+				</label>
+			</div>
+
+			<div class="user-modal-actions">
+				<button
+					type="submit"
+					class="user-modal-button">Eltávolítás</button
+				>
+				<button
+					on:click="{() => (modelOpen = null)}"
+					type="button"
+					class="user-modal-button">Mégsem</button
+				>
+			</div>
+		</form>
+	</div>
+{/if}
+
+<div class="message-header">
+	<h3>{group.name}</h3>
+	<div class="chat-info-actions">
+		<span class="message-header-users">
+			<strong>{users.length}</strong> felhasználó
+		</span>
+
+		<div class="chat-actions">
+			<button on:click="{() => (modelOpen = 'addUser')}">
+				<PersonAdd
+					width="30"
+					height="30"
+				/>
+			</button>
+			<button on:click="{() => (modelOpen = 'removeUser')}">
+				<PersonDash
+					width="30"
+					height="30"
+				/>
+			</button>
+		</div>
+	</div>
 </div>
-<div
-	class="container"
-	style="width: 15rem;"
->
-	<h1>Felhasználó eltávolítása</h1>
-	<form on:submit="{handleRemoveUserSubmit}">
-		<label class="w-50 p-2">
-			Felhasználó
-			<select name="userId">
-				{#each users as user}
-					<option value="{user.id}">{user.name}</option>
-				{/each}
-			</select>
-		</label>
-
-		<button
-			type="submit"
-			class="w-60 p-1 btn btn-info">Eltávolítás</button
-		>
-	</form>
-</div> -->
 <div class="message-container">
-	<div class="message-container-messages">
+	<div
+		class="message-container-messages"
+		bind:this="{messageContainerMessages}"
+	>
 		{#each messages as message}
 			<div
 				class="message-container-message {message.User.id ===
@@ -202,6 +253,14 @@
 </div>
 
 <style>
+	.message-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px;
+		border-bottom: 1px solid #ccc;
+	}
+
 	.message-container {
 		display: flex;
 		flex-direction: column;
@@ -213,7 +272,9 @@
 		overflow-y: auto;
 		position: fixed;
 		width: calc(100% - 256px);
-		height: calc(100% - var(--header-height) - 38px);
+		height: calc(100% - var(--header-height) - 39px - 50px);
+		border-bottom: 1px solid #ccc;
+		padding: 5px;
 	}
 
 	.message-container-messages div {
@@ -266,9 +327,66 @@
 
 	.message-container-message-time {
 		margin-right: 5px;
+		color: gray;
 	}
 
 	.message-container-message-name {
 		font-weight: bold;
+	}
+
+	.message-container-message-text {
+		background-color: lightblue;
+		padding: 5px 10px;
+		border-radius: 4px;
+	}
+
+	.chat-info-actions {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.chat-actions {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.chat-actions button {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+	}
+
+	.user-modal {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: white;
+		padding: 20px;
+		border-radius: 4px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+	}
+
+	.user-modal-body {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.user-modal-actions {
+		display: flex;
+		justify-content: space-evenly;
+	}
+
+	.user-modal-label {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.user-modal-button {
+		margin-top: 10px;
+		border-radius: 4px;
 	}
 </style>
