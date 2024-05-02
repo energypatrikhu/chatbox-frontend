@@ -19,6 +19,7 @@ export const load = (async ({ params, parent }) => {
 				id: params.id,
 				messages: [],
 				users: [],
+				group: { id: 0, name: '' },
 			};
 		}
 
@@ -39,6 +40,7 @@ export const load = (async ({ params, parent }) => {
 			id: params.id,
 			messages: getGroupMessages.data.reverse(),
 			users: getGroupUsers.data,
+			group,
 		};
 	} catch (error) {
 		goto('/');
@@ -48,5 +50,6 @@ export const load = (async ({ params, parent }) => {
 		id: params.id,
 		messages: [],
 		users: [],
+		group: { id: 0, name: '' },
 	};
 }) satisfies PageLoad;
