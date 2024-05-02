@@ -118,55 +118,58 @@
 	}
 </script>
 
-<h1>Felhasználó hozzáadása</h1>
-<form on:submit="{handleAddUserSubmit}">
-	<label>
-		Név
-		<input
-			type="text"
-			name="name"
-		/>
-	</label>
+<div class="container" style="width: 15rem;"> 
+	<h1>Felhasználó hozzáadása</h1>
+	<form on:submit="{handleAddUserSubmit}">
+		<label class="w-50 p-2">
+			Név
+			<input
+				type="text"
+				name="name"
+			/>
+		</label>
 
-	<button type="submit">Hozzáadás</button>
-</form>
+		<button type="submit" class="w-50 p-1 btn btn-info">Hozzáadás</button>
+	</form>
+</div>
+<div class="container" style="width: 15rem;">
+	<h1>Felhasználó eltávolítása</h1>
+	<form on:submit="{handleRemoveUserSubmit}">
+		<label class="w-50 p-2">
+			Felhasználó
+			<select name="userId">
+				{#each users as user}
+					<option value="{user.id}">{user.name}</option>
+				{/each}
+			</select>
+		</label>
 
-<h1>Felhasználó eltávolítása</h1>
-<form on:submit="{handleRemoveUserSubmit}">
-	<label>
-		Felhasználó
-		<select name="userId">
-			{#each users as user}
-				<option value="{user.id}">{user.name}</option>
-			{/each}
-		</select>
-	</label>
+		<button type="submit" class="w-60 p-1 btn btn-info">Eltávolítás</button>
+	</form>
+</div>
+<div class="container" style="width: 15rem;">
+	<h1>Messages</h1>
 
-	<button type="submit">Eltávolítás</button>
-</form>
+	{#each messages as message}
+		<div>
+			<span>[{message.createdAt}]</span>
+			<span>[{message.User.name}]</span>
+			<span>{message.text}</span>
+		</div>
+	{/each}
 
-<h1>Messages</h1>
+	<form on:submit="{handleMessageSubmit}">
+		<label class="w-50 p-2">
+			Üzenet
+			<input
+				type="text"
+				name="message"
+			/>
+		</label>
 
-{#each messages as message}
-	<div>
-		<span>[{message.groupId}|{message.userId}]</span>
-		<span>[{message.createdAt}]</span>
-		<span>[{message.User.name}]</span>
-		<span>{message.text}</span>
-	</div>
-{/each}
-
-<form on:submit="{handleMessageSubmit}">
-	<label>
-		Üzenet
-		<input
-			type="text"
-			name="message"
-		/>
-	</label>
-
-	<button type="submit">Küldés</button>
-</form>
+		<button type="submit" class="w-50 p-1 btn btn-info">Küldés</button>
+	</form>
+</div>
 
 <style>
 	div {
