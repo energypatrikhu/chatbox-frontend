@@ -42,3 +42,5 @@
 
 	<button type="submit">Bejelentkezés</button>
 </form>
+
+<a href="/user/register">Regisztráció</a>
