@@ -5,9 +5,11 @@
 
 	import { userGroupsStore } from '$lib/stores/user';
 	import { page } from '$app/stores';
+
+	let headerHeight: number = 0;
 </script>
 
-<header>
+<header bind:offsetHeight="{headerHeight}">
 	<nav
 		class="navbar navbar-expand-lg bg-body-tertiary"
 		style="background-color:deepskyblue"
@@ -78,7 +80,10 @@
 	</aside>
 {/if}
 
-<main>
+<main
+	class="{$page.url.pathname.startsWith('/user') ? 'main-full' : 'main-min'}"
+	style="--header-height: {headerHeight}px"
+>
 	<slot />
 </main>
 
@@ -86,10 +91,25 @@
 	aside {
 		background-color: whitesmoke;
 		position: fixed;
-		width: 300px;
-		height: calc(100% - 72px);
+		width: 256px;
+		height: calc(100% - var(--header-height));
 		overflow-x: hidden;
 		overflow-y: auto;
+	}
+
+	main {
+		overflow: hidden;
+	}
+
+	.main-full {
+		width: 100vw;
+	}
+
+	.main-min {
+		position: fixed;
+		height: calc(100% - var(--header-height));
+		width: calc(100vw - 256px);
+		left: 256px;
 	}
 
 	a {
