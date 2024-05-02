@@ -99,6 +99,8 @@
 
 	main {
 		overflow: hidden;
+		border-left: 1px solid #ccc;
+		box-sizing: border-box;
 	}
 
 	.main-full {
