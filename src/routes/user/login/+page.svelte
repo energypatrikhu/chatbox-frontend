@@ -21,6 +21,7 @@
 	}
 </script>
 
+<div>
 <h1>Bejelentkezés</h1>
 
 <form on:submit="{handleSubmit}">
@@ -44,3 +45,4 @@
 </form>
 
 <a href="/user/register">Regisztráció</a>
+</div>

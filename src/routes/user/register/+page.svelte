@@ -52,5 +52,10 @@
 		<button type="submit">Regisztráció</button>
 	</form>
 
-	<a href="/user/login">Bejelentkezés</a>
+	<a class="nav-link"  href="/user/login">Bejelentkezés</a>
 </div>
+<style>
+	a{
+		color: black;
+	}
+</style>
