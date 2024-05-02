@@ -1,8 +1,9 @@
 import { type Writable, writable, get } from 'svelte/store';
-import type { User, UserContact } from '$lib/types/user';
+import type { User, UserContact, UserGroup } from '$lib/types/user';
 import api from '$lib/scripts/api';
-import type { AxiosResponse } from 'axios';
 import _ from 'lodash';
+
+export const userLoginId: Writable<string> = writable('');
 
 // User store
 export const userStore: Writable<User> = writable();
@@ -21,7 +22,7 @@ userStore.subscribe((value) => {
 		const userId = value.id;
 		const oldUser = get(userStore);
 		if (!_.isMatch(oldUser, value)) {
-			api.post(`/user/${userId}`, value);
+			api.patch(`/user/${userId}?loginId=${get(userLoginId)}`, value);
 		}
 	}, 1000);
 });
@@ -30,7 +31,7 @@ userStore.subscribe((value) => {
 export const userContactsStore: Writable<UserContact[]> = writable();
 let userContactsStoreFirstChange = true;
 let userContactsStoreBounceTimer: number | null = null;
-userContactsStore.subscribe(async (value) => {
+userContactsStore.subscribe(async (updatedContacts) => {
 	if (userContactsStoreBounceTimer) {
 		clearTimeout(userContactsStoreBounceTimer);
 	}
@@ -41,20 +42,29 @@ userContactsStore.subscribe(async (value) => {
 		}
 
 		const userId = get(userStore).id;
-		const currentContacts = get(userContactsStore);
-		if (currentContacts.length === value.length) {
+		api.patch(`/user/contacts/${userId}?loginId=${get(userLoginId)}`, {
+			groupIds: updatedContacts.map((contact) => contact.id),
+		});
+	}, 1000);
+});
+
+// User groups store
+export const userGroupsStore: Writable<UserGroup[]> = writable();
+let userGroupsStoreFirstChange = true;
+let userGroupsStoreBounceTimer: number | null = null;
+userGroupsStore.subscribe(async (updatedGroups) => {
+	if (userGroupsStoreBounceTimer) {
+		clearTimeout(userGroupsStoreBounceTimer);
+	}
+	userGroupsStoreBounceTimer = setTimeout(async () => {
+		if (userGroupsStoreFirstChange) {
+			userGroupsStoreFirstChange = false;
 			return;
 		}
 
-		const newContactsPost: Promise<AxiosResponse<any, any>>[] = [];
-		for (const contact of value) {
-			if (!currentContacts.find((c) => c.id === contact.id)) {
-				newContactsPost.push(
-					api.post(`/user/contacts/${userId}`, contact),
-				);
-			}
-		}
-
-		await Promise.all(newContactsPost);
+		const userId = get(userStore).id;
+		api.patch(`/user/groups/${userId}?loginId=${get(userLoginId)}`, {
+			groupIds: updatedGroups.map((group) => group.id),
+		});
 	}, 1000);
 });
