@@ -39,7 +39,7 @@ export const load = (async ({ params, parent }) => {
 			await api.get(`/chat/group/users/${group.type}/${group.id}`)
 		).data as ApiGroupUsers;
 
-		await api.post(`/chat/group/user/setLastOpened`, {
+		await api.post(`/chat/group/users/setLastOpened`, {
 			userId: get(userStore).id,
 			groupId: group.id,
 			groupType: group.type,
