@@ -66,7 +66,7 @@
 	<aside>
 		{#each $userGroupsStore as group}
 			<div>
-				<a href="/group/{group.id}">
+				<a href="/chat/{group.id}">
 					<span>{group.name}</span>
 				</a>
 			</div>

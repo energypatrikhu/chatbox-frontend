@@ -49,7 +49,7 @@ export const load = (async ({ url }) => {
 		userGroupsStore.set(getUserGroups.data);
 
 		if (getUser.data.lastOpened) {
-			goto(`/${getUser.data.lastOpened.replace(/\:/g, '/')}`);
+			goto(`/chat/${getUser.data.lastOpened}`);
 		}
 	} catch (error) {
 		return redirect(302, '/user/login');
