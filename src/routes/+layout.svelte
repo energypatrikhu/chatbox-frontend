@@ -1,6 +1,12 @@
 <script lang="ts">
-	import { userStore, userContactsStore } from '$lib/stores/user';
+	import {
+		userStore,
+		userContactsStore,
+		userGroupsStore,
+	} from '$lib/stores/user';
 	import { page } from '$app/stores';
+
+	let showRoomType: 'contacts' | 'groups' = 'contacts';
 </script>
 
 <header>
@@ -13,12 +19,30 @@
 </header>
 
 {#if !$page.url.pathname.startsWith('/user')}
+	<div>
+		<button on:click="{() => (showRoomType = 'contacts')}"
+			>Kapcsolatok</button
+		>
+		<button on:click="{() => (showRoomType = 'groups')}">Csoportok</button>
+	</div>
 	<aside>
-		{#each $userContactsStore as contact}
-			<div>
-				<span>{contact}</span>
-			</div>
-		{/each}
+		{#if showRoomType === 'contacts'}
+			{#each $userContactsStore as contact}
+				<div>
+					<a href="/contact/{contact.id}">
+						<span>{contact.name}</span>
+					</a>
+				</div>
+			{/each}
+		{:else}
+			{#each $userGroupsStore as group}
+				<div>
+					<a href="/group/{group.id}">
+						<span>{group.name}</span>
+					</a>
+				</div>
+			{/each}
+		{/if}
 	</aside>
 {/if}
 
