@@ -36,11 +36,10 @@
 	}
 </script>
 
-<h1>Csoport létrehozása</h1>
-
-<div>
+<div class="container" style="width: 15rem;">
+	<h1>Csoport létrehozása</h1>
 	<form on:submit="{handleSubmit}">
-		<label>
+		<label class="w-50 p-2">
 			Csoport név
 			<input
 				type="text"
@@ -48,6 +47,6 @@
 			/>
 		</label>
 
-		<button type="submit">Létrehozás</button>
+		<button type="submit" class="w-50 p-1 btn btn-info">Létrehozás</button>
 	</form>
 </div>
