@@ -3,38 +3,63 @@
 	import '$lib/bootstrap/js/bootstrap.bundle.min.js';
 	import { List } from 'svelte-bootstrap-icons';
 
-	import {
-		userStore,
-		userContactsStore,
-		userGroupsStore,
-	} from '$lib/stores/user';
+	import { userContactsStore, userGroupsStore } from '$lib/stores/user';
 	import { page } from '$app/stores';
 
 	let showRoomType: 'contacts' | 'groups' = 'contacts';
 </script>
 
-<header >
-	<nav class="navbar navbar-expand-lg bg-body-tertiary " style="background-color:deepskyblue">
+<header>
+	<nav
+		class="navbar navbar-expand-lg bg-body-tertiary"
+		style="background-color:deepskyblue"
+	>
 		<div class="container-fluid">
-		  <h1 >ChatBox</h1>
-		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<List width=30 height=30/>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-			  <li class="nav-item">
-				<a class="nav-link" aria-current="page" href="/">Főoldal</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="/about">Rólunk</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="/settings">Beállítások</a>
-			  </li>
-			</ul>
-		  </div>
+			<h1>ChatBox</h1>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarNav"
+			>
+				<List
+					width="30"
+					height="30"
+				/>
+			</button>
+			<div
+				class="collapse navbar-collapse"
+				id="navbarNav"
+			>
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a
+							class="nav-link"
+							href="/">Főoldal</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link"
+							href="/about">Rólunk</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link"
+							href="/settings">Beállítások</a
+						>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link"
+							href="/groups/createGroup">Csoport létrehozás</a
+						>
+					</li>
+				</ul>
+			</div>
 		</div>
-	  </nav>
+	</nav>
 </header>
 
 {#if !$page.url.pathname.startsWith('/user')}
