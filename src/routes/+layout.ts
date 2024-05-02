@@ -27,6 +27,8 @@ export const load = (async ({ url }) => {
 		return;
 	}
 
+	if (get(userLoginId)) return;
+
 	const loginId = localStorage.getItem('loginId');
 	if (!loginId) {
 		return redirect(302, '/user/login');
@@ -60,7 +62,7 @@ export const load = (async ({ url }) => {
 		userGroupsStore.set(getUserGroups.data);
 
 		if (getUser.data.lastOpened) {
-			goto(`/${getUser.data.lastOpened}`);
+			goto(`/${getUser.data.lastOpened.replace(/\:/g, '/')}`);
 		}
 	} catch (error) {
 		return redirect(302, '/user/login');
