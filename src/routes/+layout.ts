@@ -14,7 +14,6 @@ import handleSocket from '$lib/scripts/socket';
 import { goto } from '$app/navigation';
 
 export const ssr = false;
-// export const prerender = false;
 
 export const load = (async ({ url }) => {
 	if (url.pathname.startsWith('/user')) {
