@@ -27,6 +27,8 @@ export const load = (async ({ url }) => {
 		return;
 	}
 
+	if (get(userLoginId)) return;
+
 	const loginId = localStorage.getItem('loginId');
 	if (!loginId) {
 		return redirect(302, '/user/login');
