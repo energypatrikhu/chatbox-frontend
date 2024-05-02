@@ -1,7 +1,6 @@
 import { type Writable, writable, get } from 'svelte/store';
 import type { User, UserContact, UserGroup } from '$lib/types/user';
 import api from '$lib/scripts/api';
-import _ from 'lodash';
 
 export const userLoginId: Writable<string> = writable('');
 
@@ -19,14 +18,10 @@ userStore.subscribe((updatedUserData) => {
 			return;
 		}
 
-		const userId = updatedUserData.id;
-		const oldUserData = get(userStore);
-		if (!_.isMatch(oldUserData, updatedUserData)) {
-			api.patch(
-				`/user/${userId}?loginId=${get(userLoginId)}`,
-				updatedUserData,
-			);
-		}
+		api.patch(
+			`/user/data/${updatedUserData.id}?loginId=${get(userLoginId)}`,
+			updatedUserData,
+		);
 	}, 1000);
 });
 
@@ -45,12 +40,9 @@ userContactsStore.subscribe(async (updatedContacts) => {
 		}
 
 		const userId = get(userStore).id;
-		const oldContacts = get(userContactsStore);
-		if (!_.isMatch(oldContacts, updatedContacts)) {
-			api.patch(`/user/contacts/${userId}?loginId=${get(userLoginId)}`, {
-				groupIds: updatedContacts.map((contact) => contact.id),
-			});
-		}
+		api.patch(`/user/contacts/${userId}?loginId=${get(userLoginId)}`, {
+			groupIds: updatedContacts.map((contact) => contact.id),
+		});
 	}, 1000);
 });
 
@@ -69,11 +61,8 @@ userGroupsStore.subscribe(async (updatedGroups) => {
 		}
 
 		const userId = get(userStore).id;
-		const oldGroups = get(userGroupsStore);
-		if (!_.isMatch(oldGroups, updatedGroups)) {
-			api.patch(`/user/groups/${userId}?loginId=${get(userLoginId)}`, {
-				groupIds: updatedGroups.map((group) => group.id),
-			});
-		}
+		api.patch(`/user/groups/${userId}?loginId=${get(userLoginId)}`, {
+			groupIds: updatedGroups.map((group) => group.id),
+		});
 	}, 1000);
 });
