@@ -12,18 +12,29 @@
 	let showRoomType: 'contacts' | 'groups' = 'contacts';
 </script>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
 <header >
-	<h1 class="navbar-brand">ChatBox</h1>
-	<nav>
-		<li class="nav-item">
-			<a  href="/">Főoldal</a>
-			<a  href="/about">Rólunk</a>
-			<a  href="/settings">Beállítások</a>
-		</li>
-	</nav>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary " style="background-color:deepskyblue">
+		<div class="container-fluid">
+		  <h1 >ChatBox</h1>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="/">Főoldal</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/about">Rólunk</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/settings">Beállítások</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
 </header>
-</nav>
 
 {#if !$page.url.pathname.startsWith('/user')}
 	<div>
@@ -56,3 +67,9 @@
 <main>
 	<slot />
 </main>
+
+<style>
+	a {
+		color: black;
+	}
+</style>
