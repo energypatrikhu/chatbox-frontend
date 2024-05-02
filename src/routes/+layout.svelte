@@ -12,15 +12,25 @@
 	let showRoomType: 'contacts' | 'groups' = 'contacts';
 </script>
 
-<header>
-	<h1>ChatBox</h1>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<header >
+	<h1 class="navbar-brand">ChatBox</h1>
 	<nav>
+<<<<<<< HEAD
 		<a href="/">Főoldal</a>
 		<a href="/about">Rólunk</a>
 		<a href="/settings">Beállítások</a>
 		<a href="/groups/createGroup">Csoport létrehozása</a>
+=======
+		<li class="nav-item">
+			<a  href="/">Főoldal</a>
+			<a  href="/about">Rólunk</a>
+			<a  href="/settings">Beállítások</a>
+		</li>
+>>>>>>> 5d32d34758164dbe590d308b7b0c7b9bc57ab380
 	</nav>
 </header>
+</nav>
 
 {#if !$page.url.pathname.startsWith('/user')}
 	<div>
