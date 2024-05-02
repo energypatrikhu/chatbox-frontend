@@ -24,6 +24,8 @@
 
 		$socket.off('message');
 		$socket.on('message', (message: Message) => {
+			console.log('message', message);
+
 			if (message.Group.id !== parseInt(id)) {
 				return;
 			}
@@ -53,10 +55,6 @@
 		return () => {
 			$socket.off('message');
 		};
-	});
-
-	beforeNavigate(() => {
-		$socket.off('message');
 	});
 
 	async function handleMessageSubmit(event: Event) {
