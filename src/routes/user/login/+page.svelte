@@ -1,5 +1,5 @@
 <script lang="ts">
-	import api from '../../../lib/scripts/api';
+	import api from '$lib/scripts/api';
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -7,8 +7,14 @@
 		const data = Object.fromEntries(formData.entries());
 
 		try {
-			const res = await api.patch('user/login', data);
-			console.log(res);
+			const loginResponse = (await api.patch('user/login', data)).data;
+
+			if (loginResponse.success) {
+				localStorage.setItem('loginId', loginResponse.data.loginId);
+				location.href = '/';
+			} else {
+				alert(loginResponse.message);
+			}
 		} catch (error) {
 			console.log(error);
 		}
