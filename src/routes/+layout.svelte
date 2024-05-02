@@ -18,6 +18,7 @@
 		<a href="/">Főoldal</a>
 		<a href="/about">Rólunk</a>
 		<a href="/settings">Beállítások</a>
+		<a href="/groups/createGroup">Csoport létrehozása</a>
 	</nav>
 </header>
 
