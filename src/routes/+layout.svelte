@@ -1,4 +1,7 @@
 <script lang="ts">
+	import '$lib/bootstrap/css/bootstrap.min.css';
+	import '$lib/bootstrap/js/bootstrap.bundle.min.js';
+
 	import {
 		userStore,
 		userContactsStore,
