@@ -52,7 +52,7 @@
 						<li class="nav-item">
 							<a
 								class="nav-link"
-								href="/groups/createGroup">Csoport létrehozás</a
+								href="/chat/createGroup">Csoport létrehozás</a
 							>
 						</li>
 					{/if}
