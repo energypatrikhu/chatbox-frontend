@@ -7,10 +7,10 @@ import type {
 	ApiUserGroups,
 } from '$lib/types/api/user';
 import { userGroupsStore, userLoginId, userStore } from '$lib/stores/user';
-import socket from '../lib/stores/socket';
+import socket from '$lib/stores/socket';
 import { io } from 'socket.io-client';
 import { get } from 'svelte/store';
-import handleSocket from '../lib/scripts/socket';
+import handleSocket from '$lib/scripts/socket';
 import { goto } from '$app/navigation';
 
 export const ssr = false;

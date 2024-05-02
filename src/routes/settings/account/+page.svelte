@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { userStore } from '$lib/stores/user';
+  
+  let email = $userStore.email;
 </script>
 
 <h1>Account</h1>

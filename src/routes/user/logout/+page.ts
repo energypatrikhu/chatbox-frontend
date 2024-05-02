@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-import api from '../../../lib/scripts/api';
+import api from '$lib/scripts/api';
 
 export const load = (async () => {
 	const loginId = localStorage.getItem('loginId');

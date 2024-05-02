@@ -23,7 +23,7 @@ export default function handleSocket(_socket: Writable<Socket>) {
 			return groups.filter((group) => group.id !== data.id);
 		});
 
-		if (get(page).url.pathname === `/${data.type}/${data.id}`) {
+		if (get(page).url.pathname === `/chat/${data.id}`) {
 			goto('/');
 		}
 	});

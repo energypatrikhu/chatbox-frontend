@@ -14,15 +14,12 @@
 	export let data: PageData;
 	let pageLoaded = false;
 
-	$: ({ messages, type, id, users } = data);
+	$: ({ messages, id, users } = data);
 
 	function messageListener() {
 		$socket.off('message');
 		$socket.on('message', (message: Message) => {
-			if (
-				message.Group.id !== parseInt(id) ||
-				message.Group.type !== type
-			) {
+			if (message.Group.id !== parseInt(id)) {
 				return;
 			}
 
@@ -62,7 +59,6 @@
 
 		try {
 			$socket.emit('message', {
-				destinationType: type,
 				destinationId: id,
 				senderId: $userStore.id,
 				text: data.message,

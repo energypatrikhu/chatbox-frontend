@@ -1,4 +1,4 @@
-import type { User, UserContact, UserGroup } from '$lib/types/user';
+import type { User, UserGroup } from '$lib/types/user';
 
 export type ApiLoginCheck = {
 	success: boolean;
@@ -11,12 +11,6 @@ export type ApiLoginCheck = {
 export type ApiUser = {
 	success: boolean;
 	data: User;
-	error?: string;
-};
-
-export type ApiUserContacts = {
-	success: boolean;
-	data: UserContact[];
 	error?: string;
 };
 

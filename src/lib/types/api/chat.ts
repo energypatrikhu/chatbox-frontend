@@ -1,5 +1,5 @@
-import type { Message } from '../chat';
-import type { UserGroup } from '../user';
+import type { Message } from '$lib/types/chat';
+import type { UserGroup } from '$lib/types/user';
 
 export type ApiMessages = {
 	success: boolean;
@@ -21,7 +21,6 @@ export type ApiAddUser = {
 			name: string;
 		};
 		id: number;
-		type: string;
 		name: string;
 		createdAt: Date;
 		updatedAt: Date;

@@ -11,13 +11,11 @@ export interface Message {
 	};
 	Group: {
 		id: number;
-		type: string;
 	};
 }
 
 export interface GroupChange {
 	id: number;
-	type: string;
 	name: string;
 	createdAt: Date;
 	updatedAt: Date;

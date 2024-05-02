@@ -1,5 +1,5 @@
 import { type Writable, writable, get } from 'svelte/store';
-import type { User, UserContact, UserGroup } from '$lib/types/user';
+import type { User, UserGroup } from '$lib/types/user';
 import api from '$lib/scripts/api';
 
 export const userLoginId: Writable<string> = writable('');
@@ -22,27 +22,6 @@ userStore.subscribe((updatedUserData) => {
 			`/user/data/${updatedUserData.id}?loginId=${get(userLoginId)}`,
 			updatedUserData,
 		);
-	}, 1000);
-});
-
-// User contacts store
-export const userContactsStore: Writable<UserContact[]> = writable();
-let userContactsStoreFirstChange = true;
-let userContactsStoreBounceTimer: number | null = null;
-userContactsStore.subscribe(async (updatedContacts) => {
-	if (userContactsStoreBounceTimer) {
-		clearTimeout(userContactsStoreBounceTimer);
-	}
-	userContactsStoreBounceTimer = setTimeout(async () => {
-		if (userContactsStoreFirstChange) {
-			userContactsStoreFirstChange = false;
-			return;
-		}
-
-		const userId = get(userStore).id;
-		api.patch(`/user/contacts/${userId}?loginId=${get(userLoginId)}`, {
-			groupIds: updatedContacts.map((contact) => contact.id),
-		});
 	}, 1000);
 });
 
