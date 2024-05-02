@@ -3,10 +3,8 @@
 	import '$lib/bootstrap/js/bootstrap.bundle.min.js';
 	import { List } from 'svelte-bootstrap-icons';
 
-	import { userContactsStore, userGroupsStore } from '$lib/stores/user';
+	import { userGroupsStore } from '$lib/stores/user';
 	import { page } from '$app/stores';
-
-	let showRoomType: 'contacts' | 'groups' = 'contacts';
 </script>
 
 <header>
@@ -44,18 +42,20 @@
 							href="/about">Rólunk</a
 						>
 					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="/settings">Beállítások</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="/groups/createGroup">Csoport létrehozás</a
-						>
-					</li>
+					{#if !$page.url.pathname.startsWith('/user')}
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								href="/settings">Beállítások</a
+							>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								href="/groups/createGroup">Csoport létrehozás</a
+							>
+						</li>
+					{/if}
 				</ul>
 			</div>
 		</div>
@@ -63,30 +63,14 @@
 </header>
 
 {#if !$page.url.pathname.startsWith('/user')}
-	<div>
-		<button on:click="{() => (showRoomType = 'contacts')}"
-			>Kapcsolatok</button
-		>
-		<button on:click="{() => (showRoomType = 'groups')}">Csoportok</button>
-	</div>
 	<aside>
-		{#if showRoomType === 'contacts'}
-			{#each $userContactsStore as contact}
-				<div>
-					<a href="/contact/{contact.id}">
-						<span>{contact.name}</span>
-					</a>
-				</div>
-			{/each}
-		{:else}
-			{#each $userGroupsStore as group}
-				<div>
-					<a href="/group/{group.id}">
-						<span>{group.name}</span>
-					</a>
-				</div>
-			{/each}
-		{/if}
+		{#each $userGroupsStore as group}
+			<div>
+				<a href="/group/{group.id}">
+					<span>{group.name}</span>
+				</a>
+			</div>
+		{/each}
 	</aside>
 {/if}
 

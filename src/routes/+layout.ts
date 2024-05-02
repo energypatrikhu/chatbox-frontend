@@ -4,15 +4,9 @@ import api from '$lib/scripts/api';
 import type {
 	ApiLoginCheck,
 	ApiUser,
-	ApiUserContacts,
 	ApiUserGroups,
 } from '$lib/types/api/user';
-import {
-	userContactsStore,
-	userGroupsStore,
-	userLoginId,
-	userStore,
-} from '$lib/stores/user';
+import { userGroupsStore, userLoginId, userStore } from '$lib/stores/user';
 import socket from '../lib/stores/socket';
 import { io } from 'socket.io-client';
 import { get } from 'svelte/store';
@@ -44,12 +38,6 @@ export const load = (async ({ url }) => {
 			)
 		).data as ApiUser;
 
-		const getUserContacts = (
-			await api.get(
-				`/user/contacts/${checkLoginId.data.id}?loginId=${loginId}`,
-			)
-		).data as ApiUserContacts;
-
 		const getUserGroups = (
 			await api.get(
 				`/user/groups/${checkLoginId.data.id}?loginId=${loginId}`,
@@ -58,7 +46,6 @@ export const load = (async ({ url }) => {
 
 		userLoginId.set(loginId);
 		userStore.set(getUser.data);
-		userContactsStore.set(getUserContacts.data);
 		userGroupsStore.set(getUserGroups.data);
 
 		if (getUser.data.lastOpened) {
