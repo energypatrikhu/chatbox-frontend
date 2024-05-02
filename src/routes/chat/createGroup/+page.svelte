@@ -24,12 +24,9 @@
 					createGroupResponse.data,
 				]);
 
-				$socket.emit(
-					'join',
-					`${createGroupResponse.data.type}:${createGroupResponse.data.id}`,
-				);
+				$socket.emit('join', createGroupResponse.data.id);
 
-				goto(`/group/${createGroupResponse.data.id}`);
+				goto(`/chat/${createGroupResponse.data.id}`);
 			} else {
 				alert(createGroupResponse.error);
 			}
