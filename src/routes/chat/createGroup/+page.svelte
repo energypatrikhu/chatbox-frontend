@@ -36,7 +36,10 @@
 	}
 </script>
 
-<div class="container" style="width: 15rem;">
+<div
+	class="container"
+	style="width: 15rem;"
+>
 	<h1>Csoport létrehozása</h1>
 	<form on:submit="{handleSubmit}">
 		<label class="w-50 p-2">
@@ -47,6 +50,9 @@
 			/>
 		</label>
 
-		<button type="submit" class="w-50 p-1 btn btn-info">Létrehozás</button>
+		<button
+			type="submit"
+			class="w-50 p-1 btn btn-info">Létrehozás</button
+		>
 	</form>
 </div>

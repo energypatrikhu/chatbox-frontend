@@ -118,7 +118,10 @@
 	}
 </script>
 
-<div class="container" style="width: 15rem;"> 
+<div
+	class="container"
+	style="width: 15rem;"
+>
 	<h1>Felhasználó hozzáadása</h1>
 	<form on:submit="{handleAddUserSubmit}">
 		<label class="w-50 p-2">
@@ -129,10 +132,16 @@
 			/>
 		</label>
 
-		<button type="submit" class="w-50 p-1 btn btn-info">Hozzáadás</button>
+		<button
+			type="submit"
+			class="w-50 p-1 btn btn-info">Hozzáadás</button
+		>
 	</form>
 </div>
-<div class="container" style="width: 15rem;">
+<div
+	class="container"
+	style="width: 15rem;"
+>
 	<h1>Felhasználó eltávolítása</h1>
 	<form on:submit="{handleRemoveUserSubmit}">
 		<label class="w-50 p-2">
@@ -144,10 +153,16 @@
 			</select>
 		</label>
 
-		<button type="submit" class="w-60 p-1 btn btn-info">Eltávolítás</button>
+		<button
+			type="submit"
+			class="w-60 p-1 btn btn-info">Eltávolítás</button
+		>
 	</form>
 </div>
-<div class="container" style="width: 15rem;">
+<div
+	class="container"
+	style="width: 15rem;"
+>
 	<h1>Messages</h1>
 
 	{#each messages as message}
@@ -167,7 +182,10 @@
 			/>
 		</label>
 
-		<button type="submit" class="w-50 p-1 btn btn-info">Küldés</button>
+		<button
+			type="submit"
+			class="w-50 p-1 btn btn-info">Küldés</button
+		>
 	</form>
 </div>
 
