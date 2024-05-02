@@ -66,14 +66,13 @@
 	<aside>
 		{#each $userGroupsStore as group}
 			<a
-				class="row"
+				style="{parseInt($page.params.id) === group.id
+					? 'background-color: lightblue;'
+					: ''}"
+				class="card card-body"
 				href="/chat/{group.id}"
 			>
-				<div class="col">
-					<div class="card card-body">
-						<span>{group.name}</span>
-					</div>
-				</div>
+				<span>{group.name}</span>
 			</a>
 		{/each}
 	</aside>
