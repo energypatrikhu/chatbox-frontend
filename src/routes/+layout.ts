@@ -5,8 +5,18 @@ import type {
 	ApiLoginCheck,
 	ApiUser,
 	ApiUserContacts,
+	ApiUserGroups,
 } from '$lib/types/api/user';
-import { userContactsStore, userStore } from '$lib/stores/user';
+import {
+	userContactsStore,
+	userGroupsStore,
+	userLoginId,
+	userStore,
+} from '$lib/stores/user';
+import socket from '../lib/stores/socket';
+import { io } from 'socket.io-client';
+import { get } from 'svelte/store';
+import handleSocket from '../lib/scripts/socket';
 
 export const ssr = false;
 // export const prerender = false;
@@ -37,9 +47,30 @@ export const load = (async ({ url }) => {
 			)
 		).data as ApiUserContacts;
 
+		const getUserGroups = (
+			await api.get(
+				`/user/groups/${checkLoginId.data.id}?loginId=${loginId}`,
+			)
+		).data as ApiUserGroups;
+
+		userLoginId.set(loginId);
 		userStore.set(getUser.data);
 		userContactsStore.set(getUserContacts.data);
+		userGroupsStore.set(getUserGroups.data);
 	} catch (error) {
 		return redirect(302, '/user/login');
 	}
+
+	if (!get(socket)) {
+		socket.set(
+			io('http://localhost:3000/', {
+				path: '/socket',
+				auth: { userId: get(userStore).id },
+			}),
+		);
+
+		handleSocket(socket);
+	}
+
+	return;
 }) satisfies LayoutLoad;
