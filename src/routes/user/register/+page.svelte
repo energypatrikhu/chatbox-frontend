@@ -21,34 +21,36 @@
 	}
 </script>
 
-<h1>Regisztráció</h1>
+<div class="container">
+	<h1>Regisztráció</h1>
 
-<form on:submit="{handleSubmit}">
-	<label>
-		Email
-		<input
-			type="email"
-			name="email"
-		/>
-	</label>
+	<form on:submit="{handleSubmit}">
+		<label>
+			Email
+			<input
+				type="email"
+				name="email"
+			/>
+		</label>
+		<br>
+		<label>
+			Név
+			<input
+				type="text"
+				name="name"
+			/>
+		</label>
+		<br>
+		<label>
+			Jelszó
+			<input
+				type="password"
+				name="password"
+			/>
+		</label>
 
-	<label>
-		Név
-		<input
-			type="text"
-			name="name"
-		/>
-	</label>
+		<button type="submit">Regisztráció</button>
+	</form>
 
-	<label>
-		Jelszó
-		<input
-			type="password"
-			name="password"
-		/>
-	</label>
-
-	<button type="submit">Regisztráció</button>
-</form>
-
-<a href="/user/login">Bejelentkezés</a>
+	<a href="/user/login">Bejelentkezés</a>
+</div>
