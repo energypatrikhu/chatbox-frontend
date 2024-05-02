@@ -1,5 +1,6 @@
 <script lang="ts">
 	import api from '$lib/scripts/api';
+	import { List } from 'svelte-bootstrap-icons';
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -21,27 +22,25 @@
 	}
 </script>
 
-<div class="container">
+<div class="container" style="width: 15rem;">
 	<h1>Bejelentkezés</h1>
 
 	<form on:submit="{handleSubmit}">
-		<label>
+		<label class="w-50 p-2">
 			Email
 			<input
 				type="email"
 				name="email"
 			/>
 		</label>
-		<br>
-		<label>
+		<label class="w-50 p-2">
 			Jelszó
 			<input
 				type="password"
 				name="password"
 			/>
 		</label>
-		<br>
-		<button type="submit">Bejelentkezés</button>
+		<button type="submit" class="btn btn-info">Bejelentkezés</button>
 	</form>
 
 	<a class="nav-link" href="/user/register">Regisztráció</a>

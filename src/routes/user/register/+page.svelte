@@ -1,5 +1,6 @@
 <script lang="ts">
 	import api from '$lib/scripts/api';
+	import { ArrowUpRightSquare } from 'svelte-bootstrap-icons';
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -21,7 +22,7 @@
 	}
 </script>
 
-<div class="container ">
+<div class="container " style="width: 15rem;">
 	<h1>Regisztráció</h1>
 
 	<form on:submit="{handleSubmit}">
@@ -32,9 +33,6 @@
 				name="email"
 			/>
 		</label>
-
-		<br>
-
 		<label class="w-50 p-2">
 			Név
 			<input
@@ -42,7 +40,6 @@
 				name="name"
 			/>
 		</label>
-		<br>
 		<label class="w-50 p-2">
 			Jelszó
 			<input
@@ -50,8 +47,7 @@
 				name="password"
 			/>
 		</label>
-		<br>
-		<button type="submit">Regisztráció</button>
+		<button type="submit" class="w-50 p-1 btn btn-info">Regisztráció</button>
 	</form>
 
 	<a class="nav-link"  href="/user/login">Bejelentkezés</a>
