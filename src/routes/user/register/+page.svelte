@@ -48,7 +48,7 @@
 				name="password"
 			/>
 		</label>
-
+		<br>
 		<button type="submit">Regisztráció</button>
 	</form>
 
