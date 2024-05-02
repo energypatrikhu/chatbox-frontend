@@ -21,19 +21,21 @@
 	}
 </script>
 
-<div class="container">
+<div class="container ">
 	<h1>Regisztráció</h1>
 
 	<form on:submit="{handleSubmit}">
-		<label>
+		<label class="w-50 p-2">
 			Email
 			<input
 				type="email"
 				name="email"
 			/>
 		</label>
+
 		<br>
-		<label>
+
+		<label class="w-50 p-2">
 			Név
 			<input
 				type="text"
@@ -41,7 +43,7 @@
 			/>
 		</label>
 		<br>
-		<label>
+		<label class="w-50 p-2">
 			Jelszó
 			<input
 				type="password"

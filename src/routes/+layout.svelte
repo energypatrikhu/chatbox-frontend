@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '$lib/bootstrap/css/bootstrap.min.css';
 	import '$lib/bootstrap/js/bootstrap.bundle.min.js';
+	import { List } from 'svelte-bootstrap-icons';
 
 	import {
 		userStore,
@@ -17,12 +18,12 @@
 		<div class="container-fluid">
 		  <h1 >ChatBox</h1>
 		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
+			<List width=30 height=30/>
 		  </button>
 		  <div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 			  <li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="/">Főoldal</a>
+				<a class="nav-link" aria-current="page" href="/">Főoldal</a>
 			  </li>
 			  <li class="nav-item">
 				<a class="nav-link" href="/about">Rólunk</a>
