@@ -9,7 +9,7 @@ export const userLoginId: Writable<string> = writable('');
 export const userStore: Writable<User> = writable();
 let userStoreFirstChange = true;
 let userStoreBounceTimer: number | null = null;
-userStore.subscribe((value) => {
+userStore.subscribe((updatedUserData) => {
 	if (userStoreBounceTimer) {
 		clearTimeout(userStoreBounceTimer);
 	}
@@ -19,10 +19,13 @@ userStore.subscribe((value) => {
 			return;
 		}
 
-		const userId = value.id;
-		const oldUser = get(userStore);
-		if (!_.isMatch(oldUser, value)) {
-			api.patch(`/user/${userId}?loginId=${get(userLoginId)}`, value);
+		const userId = updatedUserData.id;
+		const oldUserData = get(userStore);
+		if (!_.isMatch(oldUserData, updatedUserData)) {
+			api.patch(
+				`/user/${userId}?loginId=${get(userLoginId)}`,
+				updatedUserData,
+			);
 		}
 	}, 1000);
 });
@@ -42,9 +45,12 @@ userContactsStore.subscribe(async (updatedContacts) => {
 		}
 
 		const userId = get(userStore).id;
-		api.patch(`/user/contacts/${userId}?loginId=${get(userLoginId)}`, {
-			groupIds: updatedContacts.map((contact) => contact.id),
-		});
+		const oldContacts = get(userContactsStore);
+		if (!_.isMatch(oldContacts, updatedContacts)) {
+			api.patch(`/user/contacts/${userId}?loginId=${get(userLoginId)}`, {
+				groupIds: updatedContacts.map((contact) => contact.id),
+			});
+		}
 	}, 1000);
 });
 
@@ -63,8 +69,11 @@ userGroupsStore.subscribe(async (updatedGroups) => {
 		}
 
 		const userId = get(userStore).id;
-		api.patch(`/user/groups/${userId}?loginId=${get(userLoginId)}`, {
-			groupIds: updatedGroups.map((group) => group.id),
-		});
+		const oldGroups = get(userGroupsStore);
+		if (!_.isMatch(oldGroups, updatedGroups)) {
+			api.patch(`/user/groups/${userId}?loginId=${get(userLoginId)}`, {
+				groupIds: updatedGroups.map((group) => group.id),
+			});
+		}
 	}, 1000);
 });
