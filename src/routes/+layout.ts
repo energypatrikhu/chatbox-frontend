@@ -17,6 +17,7 @@ import socket from '../lib/stores/socket';
 import { io } from 'socket.io-client';
 import { get } from 'svelte/store';
 import handleSocket from '../lib/scripts/socket';
+import { goto } from '$app/navigation';
 
 export const ssr = false;
 // export const prerender = false;
@@ -57,6 +58,10 @@ export const load = (async ({ url }) => {
 		userStore.set(getUser.data);
 		userContactsStore.set(getUserContacts.data);
 		userGroupsStore.set(getUserGroups.data);
+
+		if (getUser.data.lastOpened) {
+			goto(`/${getUser.data.lastOpened}`);
+		}
 	} catch (error) {
 		return redirect(302, '/user/login');
 	}
