@@ -63,6 +63,8 @@
 				senderId: $userStore.id,
 				text: data.message,
 			});
+
+			(event.target as HTMLFormElement).reset();
 		} catch (error) {
 			console.error(error);
 		}
@@ -118,7 +120,7 @@
 	}
 </script>
 
-<div
+<!-- <div
 	class="container"
 	style="width: 15rem;"
 >
@@ -158,39 +160,115 @@
 			class="w-60 p-1 btn btn-info">Eltávolítás</button
 		>
 	</form>
-</div>
-<div
-	class="container"
-	style="width: 15rem;"
->
-	<h1>Messages</h1>
+</div> -->
+<div class="message-container">
+	<div class="message-container-messages">
+		{#each messages as message}
+			<div
+				class="message-container-message {message.User.id ===
+				parseInt($userStore.id)
+					? 'message-side-right'
+					: 'message-side-left'}"
+			>
+				<div class="message-details">
+					<span class="message-container-message-time"
+						>{new Date(message.createdAt).toLocaleString()}</span
+					>
+					<span class="message-container-message-name"
+						>{message.User.name}</span
+					>
+				</div>
+				<span class="message-container-message-text"
+					>{message.text}</span
+				>
+			</div>
+		{/each}
+	</div>
 
-	{#each messages as message}
-		<div>
-			<span>[{message.createdAt}]</span>
-			<span>[{message.User.name}]</span>
-			<span>{message.text}</span>
-		</div>
-	{/each}
-
-	<form on:submit="{handleMessageSubmit}">
-		<label class="w-50 p-2">
-			Üzenet
+	<form
+		class="message-sender-container"
+		on:submit="{handleMessageSubmit}"
+	>
+		<label>
 			<input
 				type="text"
 				name="message"
+				placeholder="Üzenet..."
 			/>
 		</label>
 
-		<button
-			type="submit"
-			class="w-50 p-1 btn btn-info">Küldés</button
-		>
+		<button type="submit">Küldés</button>
 	</form>
 </div>
 
 <style>
-	div {
+	.message-container {
 		display: flex;
+		flex-direction: column;
+	}
+
+	.message-container-messages {
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+		position: fixed;
+		width: calc(100% - 256px);
+		height: calc(100% - var(--header-height) - 38px);
+	}
+
+	.message-container-messages div {
+		display: flex;
+	}
+
+	.message-sender-container {
+		position: fixed;
+		bottom: 0;
+		display: flex;
+		width: calc(100% - 256px);
+	}
+
+	.message-sender-container label {
+		flex: 1;
+		margin: 5px;
+	}
+	.message-sender-container input {
+		width: 100%;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+	.message-sender-container button {
+		width: 100px;
+		margin: 5px;
+		outline: auto;
+		border: none;
+		border-radius: 4px;
+		background-color: lightblue;
+	}
+
+	.message-container-message {
+		display: flex;
+		flex-direction: column;
+		margin: 5px;
+	}
+
+	.message-side-right {
+		align-items: flex-end;
+	}
+
+	.message-side-left .message-details {
+		flex-direction: row-reverse;
+	}
+
+	.message-details {
+		display: flex;
+		font-size: 14px;
+	}
+
+	.message-container-message-time {
+		margin-right: 5px;
+	}
+
+	.message-container-message-name {
+		font-weight: bold;
 	}
 </style>
