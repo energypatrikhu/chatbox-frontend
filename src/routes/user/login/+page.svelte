@@ -14,7 +14,7 @@
 				localStorage.setItem('loginId', loginResponse.data.loginId);
 				location.href = '/';
 			} else {
-				alert(loginResponse.message);
+				alert(loginResponse.error);
 			}
 		} catch (_error: any) {
 			const error = _error as AxiosError;

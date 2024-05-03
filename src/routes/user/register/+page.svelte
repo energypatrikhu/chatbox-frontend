@@ -14,7 +14,7 @@
 			if (registerResponse.success) {
 				location.href = '/';
 			} else {
-				alert(registerResponse.message);
+				alert(registerResponse.error);
 			}
 		} catch (_error: any) {
 			const error = _error as AxiosError;
