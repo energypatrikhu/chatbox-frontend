@@ -23,7 +23,7 @@ export const load = (async ({ params, parent }) => {
 			};
 		}
 
-		console.log('group', group);
+		// console.log('group', group);
 
 		const getGroupMessages = (await api.get(`/chat/messages/${group.id}`))
 			.data as ApiMessages;

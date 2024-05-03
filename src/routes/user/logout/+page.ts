@@ -12,7 +12,7 @@ export const load = (async () => {
 	try {
 		await api.delete(`/user/logout/${loginId}`);
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 	}
 
 	return redirect(302, '/user/login');

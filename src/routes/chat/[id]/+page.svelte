@@ -24,7 +24,7 @@
 
 		$socket.off('message');
 		$socket.on('message', (message: Message) => {
-			console.log('message', message);
+			// console.log('message', message);
 
 			if (message.Group.id !== parseInt(id)) {
 				return;
@@ -37,7 +37,7 @@
 					messageContainerMessages.scrollHeight;
 			}, 0);
 
-			console.log('message', message);
+			// console.log('message', message);
 		});
 	}
 
@@ -92,7 +92,7 @@
 			if (addUser.success) {
 				users = [...users, addUser.data.Users];
 
-				console.log('addUser', addUser);
+				// console.log('addUser', addUser);
 			} else {
 				alert(addUser.error);
 			}
@@ -117,7 +117,7 @@
 					(user) => user.id !== removeUser.data.Users.id,
 				);
 
-				console.log('removeUser', removeUser);
+				// console.log('removeUser', removeUser);
 			} else {
 				alert(removeUser.error);
 			}
