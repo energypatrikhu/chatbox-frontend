@@ -27,7 +27,7 @@
 	class="container-fluid card-3"
 	style="width: 15rem;"
 >
-	<div class="card card-3 ">
+	<div class="card card-3">
 		<div class="card-heading"><h2 class="title">Regisztráció</h2></div>
 		<div class="card-body">
 			<form on:submit="{handleSubmit}">
@@ -77,6 +77,7 @@
 		</div>
 	</div>
 </div>
+
 <style>
 	a {
 		color: darkturquoise;
@@ -86,12 +87,12 @@
 		color: #fff;
 	}
 	/* BUTTON */
-	.btn{
+	.btn {
 		display: inline-block;
 		line-height: 35px;
 		padding: 0 33px;
 		margin-top: 30px;
-		font-family: Poppins, Arial, "Helvetica", sans-serif;
+		font-family: Poppins, Arial, 'Helvetica', sans-serif;
 		cursor: pointer;
 		color: #fff;
 	}
@@ -107,7 +108,7 @@
 		margin-bottom: 20px;
 	}
 	/*CARD*/
-	.card{
+	.card {
 		overflow: hidden;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -115,7 +116,7 @@
 		background: #fff;
 		margin-top: 10px;
 	}
-	.card .card-heading{
+	.card .card-heading {
 		background: #5bc0de;
 		padding: 20px;
 		text-align: center;
@@ -125,9 +126,9 @@
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
-		-webkit-box-shadow: 0 8px 20px 0px rgba(0,0,0,0.15);
-		-moz-box-shadow: 0 8px 20px 0px rgba(0,0,0,0.15);
-		box-shadow: 0 8px 20px 0px rgba(0,0,0,0.15);
+		-webkit-box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.15);
+		-moz-box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.15);
 		display: table;
 	}
 	.card-3 .card-body {
@@ -146,18 +147,19 @@
 			background-position: center center;
 		}
 		.card-3 .card-body {
-			padding: 30px 30px; 
+			padding: 30px 30px;
 			padding-bottom: 45px;
 		}
 	}
 	/* INPUT */
-	input{
+	input {
 		outline: none;
 		border: none;
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
 		font-family: inherit;
+		width: 300px;
 	}
 	.input-group {
 		position: relative;

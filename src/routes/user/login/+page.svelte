@@ -26,7 +26,6 @@
 <div
 	class="container-fluid card-3"
 	style="width: 15rem;"
-
 >
 	<div class="card card-3">
 		<div class="card-heading"><h2 class="title">Bejelentkezés</h2></div>
@@ -64,19 +63,17 @@
 				class="nav-link"
 				href="/user/register">Regisztráció</a
 			>
-		
 		</div>
 	</div>
 </div>
 
 <style>
 	a {
-		color:darkturquoise;
+		color: darkturquoise;
 		margin-top: 20px;
 	}
 	label {
-		color:#fff;
-
+		color: #fff;
 	}
 	/* BUTTON */
 	.btn {
@@ -84,15 +81,15 @@
 		line-height: 35px;
 		padding: 0 33px;
 		margin-top: 30px;
-		font-family: Poppins, Arial, "Helvetica", sans-serif;
+		font-family: Poppins, Arial, 'Helvetica', sans-serif;
 		cursor: pointer;
-		color:#fff
+		color: #fff;
 	}
 	.btn-info {
 		background: #5bc0de;
 		border: 1px solid #5bc0de;
 	}
-	/* TITLE */	
+	/* TITLE */
 	.title {
 		font-size: 30px;
 		color: #fff;
@@ -108,7 +105,6 @@
 		margin-top: 30px;
 		background: #fff;
 		margin-top: 10px;
-
 	}
 	.card .card-heading {
 		padding: 20px 0;
@@ -130,28 +126,29 @@
 		padding-bottom: 65px;
 		padding-top: 45px;
 	}
-	@media (max-width: 767px){
+	@media (max-width: 767px) {
 		.card-3 {
 			display: block;
-		}	
+		}
 		.card-3 .card-heading {
 			padding-top: 200px;
 			background-position: center center;
 		}
-		.card-3 .card-body{
+		.card-3 .card-body {
 			display: block;
 			padding: 30px 30px;
-			padding-bottom: 45px;	
+			padding-bottom: 45px;
 		}
 	}
 	/* INPUT */
-	input{
+	input {
 		outline: none;
 		border: none;
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
 		font-family: inherit;
+		width: 300px;
 	}
 	.input-group {
 		position: relative;
@@ -161,8 +158,7 @@
 	.input--style-3 {
 		padding: 5px 0;
 		font-size: 16px;
-		color:#ccc;
+		color: #ccc;
 		background: transparent;
 	}
-	
 </style>
