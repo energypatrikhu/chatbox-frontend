@@ -5,6 +5,7 @@
 
 	import { userGroupsStore } from '$lib/stores/user';
 	import { page } from '$app/stores';
+	import { startsWith } from 'lodash';
 
 	let headerHeight: number = 0;
 </script>
@@ -32,19 +33,19 @@
 				id="navbarNav"
 			>
 				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="/">Főoldal</a
-						>
-					</li>
-					<li class="nav-item">
-						<a
-							class="nav-link"
-							href="/about">Rólunk</a
-						>
-					</li>
-					{#if !$page.url.pathname.startsWith('/user')}
+					{#if !$page.url.pathname.startsWith('/user') && !$page.url.pathname.startsWith('/about')}
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								href="/">Főoldal</a
+							>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								href="/about">Rólunk</a
+							>
+						</li>
 						<li class="nav-item">
 							<a
 								class="nav-link"
@@ -57,6 +58,19 @@
 								href="/chat/createGroup">Csoport létrehozás</a
 							>
 						</li>
+					{:else}
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								href="/about">Rólunk</a
+							>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link"
+								href="/user/login">Bejelentkezés</a
+							>
+						</li>
 					{/if}
 				</ul>
 			</div>
@@ -64,7 +78,7 @@
 	</nav>
 </header>
 
-{#if !$page.url.pathname.startsWith('/user')}
+{#if !$page.url.pathname.startsWith('/user') && !$page.url.pathname.startsWith('/about')}
 	<aside>
 		{#each $userGroupsStore as group}
 			<a
@@ -81,7 +95,10 @@
 {/if}
 
 <main
-	class="{$page.url.pathname.startsWith('/user') ? 'main-full' : 'main-min'}"
+	class="{$page.url.pathname.startsWith('/user') ||
+	$page.url.pathname.startsWith('/about')
+		? 'main-full'
+		: 'main-min'}"
 	style="--header-height: {headerHeight}px"
 >
 	<slot />

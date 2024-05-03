@@ -3,7 +3,7 @@ import type { User, UserGroup } from '$lib/types/user';
 import api from '$lib/scripts/api';
 import type { AxiosError } from 'axios';
 
-export const userLoginId: Writable<string> = writable();
+export const userLoginId: Writable<string | null> = writable(null);
 
 // User store
 export const userStore: Writable<User> = writable();
