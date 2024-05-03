@@ -1,6 +1,7 @@
 import { type Writable, writable, get } from 'svelte/store';
 import type { User, UserGroup } from '$lib/types/user';
 import api from '$lib/scripts/api';
+import type { AxiosError } from 'axios';
 
 export const userLoginId: Writable<string> = writable();
 
@@ -12,16 +13,21 @@ userStore.subscribe((updatedUserData) => {
 	if (userStoreBounceTimer) {
 		clearTimeout(userStoreBounceTimer);
 	}
-	userStoreBounceTimer = setTimeout(() => {
+	userStoreBounceTimer = setTimeout(async () => {
 		if (userStoreFirstChange) {
 			userStoreFirstChange = false;
 			return;
 		}
 
-		api.patch(
-			`/user/data/${updatedUserData.id}?loginId=${get(userLoginId)}`,
-			updatedUserData,
-		);
+		try {
+			await api.patch(
+				`/user/data/${updatedUserData.id}?loginId=${get(userLoginId)}`,
+				updatedUserData,
+			);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
+		}
 	}, 1000);
 });
 
@@ -40,8 +46,17 @@ userGroupsStore.subscribe(async (updatedGroups) => {
 		}
 
 		const userId = get(userStore).id;
-		api.patch(`/user/groups/${userId}?loginId=${get(userLoginId)}`, {
-			groupIds: updatedGroups.map((group) => group.id),
-		});
+
+		try {
+			await api.patch(
+				`/user/groups/${userId}?loginId=${get(userLoginId)}`,
+				{
+					groupIds: updatedGroups.map((group) => group.id),
+				},
+			);
+		} catch (_error: any) {
+			const error = _error as AxiosError;
+			alert((error.response?.data as any).error || error.message);
+		}
 	}, 1000);
 });
